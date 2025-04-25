@@ -32,3 +32,7 @@ typedef struct ASTNode
 %token WHILE IF ELSE PRINT
 %token LPAREN RPAREN 
 
+void yyerror(const char *s)
+{
+fprintf(stderr, "Error: %s\n", s);
+}

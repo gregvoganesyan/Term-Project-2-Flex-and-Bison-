@@ -6,6 +6,17 @@
 void yyerror(const char *s);
 extern int yylex();
 
+typedef struct ASTNode
+{
+    char * nodeType;
+    char var; // if repreenting variable
+    int num;  // if representing integer like '5'
+    struct ASTNode * left;
+    struct ASTNode * right;
+}
+
+
+
 %}
 
 %union {

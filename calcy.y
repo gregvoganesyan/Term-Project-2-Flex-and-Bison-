@@ -33,6 +33,31 @@ typedef struct ASTNode
 %token WHILE IF ELSE PRINT
 %token LPAREN RPAREN 
 
+
+%%
+
+program:
+    statements
+;
+
+statements:
+    statements statement
+    | /* empty */
+;
+
+statement:
+    VARIABLE ASSIGN expr SEMICOLON {
+        ASTNode* varNode = /* fill */
+        ASTNode* assignNode = /* fill */
+        /* Print Node */
+    }
+    | expr SEMICOLON
+    {
+        /* print first node this would be statement such as a; */
+    }
+
+%%
+
 void yyerror(const char *s)
 {
 fprintf(stderr, "Error: %s\n", s);

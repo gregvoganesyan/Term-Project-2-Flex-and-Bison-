@@ -30,5 +30,5 @@ typedef struct ASTNode
 %token PLUS MINUS MULT DIV POW
 %token GE LE EQ
 %token WHILE IF ELSE PRINT
-
+%token LPAREN RPAREN 
 

@@ -78,7 +78,32 @@ statement:
 
 %%
 
+ASTNode * createNumNode(int num)
+{
+    ASTNode *node = malloc(sizeof(ASTNode));
+    node->nodeType = strdup("NUM");  
+    node->num = num;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
+}
+
+ASTNode * createVarNode(char var)
+{
+    ASTNode *node = malloc(sizeof(ASTNode));
+    node->nodeType = strdup("VAR");  
+    node->var = var;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
+}
+
 void yyerror(const char *s)
 {
 fprintf(stderr, "Error: %s\n", s);
+}
+
+int main() {
+    yyparse();
+    return 0;
 }

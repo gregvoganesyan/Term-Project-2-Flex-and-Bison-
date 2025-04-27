@@ -98,6 +98,26 @@ ASTNode * createVarNode(char var)
     return node;
 }
 
+void printAST(ASTNode * node, int level)
+{
+    if (node == NULL) return;
+
+    for (int i = 0; i < level; i++) printf("  "); 
+    if (strcmp(node->nodeType, "NUM") == 0) {
+        printf("%d(int)\n", node->num);
+    }
+    else if (strcmp(node->nodeType, "VAR") == 0) {
+        printf("%c(var)\n", node->var);
+    }
+    else {
+        //  operators and other node types
+        printf("%s\n", node->nodeType);
+        printAST(node->left, level + 1);
+        printAST(node->right, level + 1);
+    }
+}
+
+
 void yyerror(const char *s)
 {
 fprintf(stderr, "Error: %s\n", s);

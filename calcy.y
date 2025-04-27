@@ -10,13 +10,11 @@ extern int yylex();
 typedef struct ASTNode
 {
     char * nodeType;
-    char var; // if repreenting variable
+    char var; // if representing variable
     int num;  // if representing integer like '5'
     struct ASTNode * left;
     struct ASTNode * right;
 }
-
-
 
 %}
 
@@ -33,6 +31,7 @@ typedef struct ASTNode
 %token WHILE IF ELSE PRINT
 %token LPAREN RPAREN 
 
+%type <node> expr statement
 
 %%
 
@@ -47,14 +46,32 @@ statements:
 
 statement:
     VARIABLE ASSIGN expr SEMICOLON {
-        ASTNode* varNode = /* fill */
-        ASTNode* assignNode = /* fill */
+        ASTNode* varNode = createVarNode(*$1)
+        ASTNode* assignNode = createOpNode("=", varNode, $3);
         /* Print Node */
+        printf("Assignment result:\n");
+        printAST(assignNode, 0);
+        freeAST(assignNode);
     }
     | expr SEMICOLON
     {
         /* print first node this would be statement such as a; */
+        printf("Expression result:\n");
+        printAST($1, 0);
+        freeAST($1);
     }
+    | PRINT expr SEMICOLON
+    {
+        ASTNode* printNode = createOpNode("print", $2, NULL);
+        printf("Print Statement:\n");
+        printAST(printNode, 0);
+        freeAST(printNode);
+    }
+    | error SEMICOLON
+    {
+        yerror("Syntax Error");
+    }
+;
 
 %%
 

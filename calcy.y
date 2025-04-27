@@ -18,6 +18,9 @@ typedef struct ASTNode
 
 %}
 
+ASTNode* createNumNode(int num);
+ASTNode* createVarNode(char var);
+
 %union {
     int iValue;
     char* sValue;

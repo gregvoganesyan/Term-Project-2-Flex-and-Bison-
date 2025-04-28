@@ -38,6 +38,11 @@ void freeAST(ASTNode *node);
 
 %type <node> expr statement
 
+%left PLUS MINUS
+%left MULT DIV
+%right POW
+%left GE LE EQ
+
 %%
 
 program:

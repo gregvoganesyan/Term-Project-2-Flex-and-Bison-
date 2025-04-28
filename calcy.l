@@ -7,7 +7,7 @@
 
 %%
 
-[a-zA-Z_] [a-zA-Z0-9_]* {
+[a-zA-Z_][a-zA-Z0-9_]* {
     yylval.sValue = strdup(yytext);
     return VARIABLE;
 }
@@ -21,7 +21,7 @@
 
 \n {
         printf("End of line\n");
-        return 0
+        return 0;
 }
 
 "+" { return PLUS; }
@@ -42,7 +42,7 @@
 
 . {
     printf("Unknown character: %s\n", yytext);
-    return ERROR;
+    return YYUNDEF;
 }
 
 %%

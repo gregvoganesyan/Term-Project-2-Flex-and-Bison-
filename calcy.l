@@ -5,6 +5,8 @@
 #include <string.h>
 %}
 
+%option noinput nounput
+
 [a-zA-Z_][a-zA-Z0-9_]*
 {
 yylval.sValue = strdup(yytext);
@@ -31,11 +33,11 @@ return INTEGER;
 "^" {return POW;}
 "(" {return LPAREN;}
 ")" {return RPAREN;}
-"=" {return ASSIGN;}
 ";" {return SEMICOLON;}
 ">=" {return GE;}
 "<=" {return LE;}
 "==" {return EQ;}
+"=" {return ASSIGN;}
 "while" {return WHILE;}
 "if" {return IF;}
 "else" {return ELSE;} 

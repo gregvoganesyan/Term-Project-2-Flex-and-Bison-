@@ -14,6 +14,8 @@
 %token GE LE EQ ASSIGN SEMICOLON
 %token WHILE IF ELSE PRINT
 %token LPAREN RPAREN
+%token NEWLINE
+
 
 %type <node> expr statement
 
@@ -31,25 +33,25 @@ statements:
     | /* empty */;
 
 statement:
-    VARIABLE ASSIGN expr SEMICOLON {
+    VARIABLE ASSIGN expr NEWLINE {
         ASTNode* varNode = createVarNode(*$1);
         ASTNode* assignNode = createOpNode("=", varNode, $3);
         printf("Assignment result:\n");
         printAST(assignNode, 0);
         freeAST(assignNode);
     }
-    | expr SEMICOLON {
+    | expr NEWLINE {
         printf("Expression result:\n");
         printAST($1, 0);
         freeAST($1);
     }
-    | PRINT expr SEMICOLON {
+    | PRINT expr NEWLINE {
         ASTNode* printNode = createOpNode("print", $2, NULL);
         printf("Print Statement:\n");
         printAST(printNode, 0);
         freeAST(printNode);
     }
-    | error SEMICOLON {
+    | error NEWLINE {
         yyerror("Syntax Error");
         yyerrok;
     };
@@ -121,7 +123,7 @@ void yyerror(const char* s) {
 }
 
 int main() {
-    printf("Enter an expression (make sure it ends with a semicolon): ");
+    printf("Enter an expression: ");
     yyparse();
     return 0;
 }

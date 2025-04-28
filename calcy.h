@@ -5,8 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct ASTNode 
-{
+typedef struct ASTNode {
     char *nodeType;
     char var;
     int num;
@@ -14,12 +13,14 @@ typedef struct ASTNode
     struct ASTNode *right;
 } ASTNode;
 
+/* AST Functions */
 ASTNode* createNumNode(int num);
 ASTNode* createVarNode(char var);
 ASTNode* createOpNode(char* op, ASTNode* left, ASTNode* right);
 void printAST(ASTNode* node, int level);
 void freeAST(ASTNode* node);
 
+/* Parser/Lexer Functions */
 int yylex(void);
 void yyerror(const char *s);
 

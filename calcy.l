@@ -8,7 +8,7 @@
 [a-zA-Z_]    { yylval.sValue = strdup(yytext); return VARIABLE; }
 [0-9]+                    { yylval.iValue = atoi(yytext); return INTEGER; }
 [ \t\r]+                  { /* Ignore whitespace */ }
-\n                        { return 0; }
+\n                        { return NEWLINE; }
 
 "+"       { return PLUS; }
 "-"       { return MINUS; }

@@ -1,5 +1,6 @@
 %{
 #include "calcy.tab.h"
+#include "calcy.h"
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>

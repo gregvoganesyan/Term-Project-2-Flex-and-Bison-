@@ -14,23 +14,26 @@ typedef struct ASTNode
     int num;  // if representing integer like '5'
     struct ASTNode * left;
     struct ASTNode * right;
-}
+} ASTNode;
 
 %}
 
 ASTNode* createNumNode(int num);
 ASTNode* createVarNode(char var);
+ASTNode* createOpNode(char* op, ASTNode* left, ASTNode* right);
+void printAST(ASTNode *node, int level);
+void freeAST(ASTNode *node);
 
 %union {
     int iValue;
     char* sValue;
-    nodeType *node;
+    ASTNode* node;
 }
 
 %token <iValue> INTEGER
-%token <sIndex> VARIABLE
+%token <sValue> VARIABLE
 %token PLUS MINUS MULT DIV POW
-%token GE LE EQ
+%token GE LE EQ ASSIGN SEMICOLON
 %token WHILE IF ELSE PRINT
 %token LPAREN RPAREN 
 
@@ -76,6 +79,20 @@ statement:
     }
 ;
 
+expr:
+    expr PLUS expr         { $$ = createOpNode("+", $1, $3); }
+    | expr MINUS expr      { $$ = createOpNode("-", $1, $3); }
+    | expr MULT expr       { $$ = createOpNode("*", $1, $3); }
+    | expr DIV expr        { $$ = createOpNode("/", $1, $3); }
+    | expr POW expr        { $$ = createOpNode("^", $1, $3); }
+    | expr GE expr         { $$ = createOpNode(">=", $1, $3); }
+    | expr LE expr         { $$ = createOpNode("<=", $1, $3); }
+    | expr EQ expr         { $$ = createOpNode("==", $1, $3); }
+    | LPAREN expr RPAREN   { $$ = $2; }
+    | VARIABLE             { $$ = createVarNode(*$1); }
+    | INTEGER              { $$ = createNumNode($1); }
+;
+
 %%
 
 ASTNode * createNumNode(int num)
@@ -117,6 +134,14 @@ void printAST(ASTNode * node, int level)
     }
 }
 
+void freeAST(ASTNode *node) 
+{
+    if (node == NULL) return;
+    freeAST(node->left);
+    freeAST(node->right);
+    free(node->nodeType);
+    free(node);
+}
 
 void yyerror(const char *s)
 {

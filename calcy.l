@@ -24,21 +24,21 @@ return INTEGER;
     return 0;
 }
 
-"+" return PLUS;
-"-" return MINUS;
-"*" return MULT;
-"/" return DIV; 
-"(" return LPAREN;
-")" return RPAREN;
-"=" return ASSIGN;
-";" return SEMI;
-">=" return GE;
-"<=" return LE;
-"==" return EQ; 
-"while" return WHILE;
-"if" return IF; 
-"else" return ELSE; 
-"print" return PRINT; 
+"+" {return PLUS;}
+"-" {return MINUS;}
+"*" {return MULT;}
+"/" {return DIV;}
+"(" {return LPAREN;}
+")" {return RPAREN;}
+"=" {return ASSIGN;}
+";" {return SEMICOLON;}
+">=" {return GE;}
+"<=" {return LE;}
+"==" {return EQ;}
+"while" {return WHILE;}
+"if" {return IF;}
+"else" {return ELSE;} 
+"print" {return PRINT;} 
 
 .  { printf("Unknown character: %s\n", yytext); 
     return ERROR;

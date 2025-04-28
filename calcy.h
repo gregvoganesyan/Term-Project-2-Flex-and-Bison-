@@ -20,4 +20,7 @@ ASTNode* createOpNode(char* op, ASTNode* left, ASTNode* right);
 void printAST(ASTNode* node, int level);
 void freeAST(ASTNode* node);
 
+int yylex(void);
+void yyerror(const char *s);
+
 #endif

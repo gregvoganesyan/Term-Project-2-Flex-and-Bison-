@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+#include "calcy.h"
 
 void yyerror(const char *s);
 extern int yylex();

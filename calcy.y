@@ -51,7 +51,7 @@ statements:
 
 statement:
     VARIABLE ASSIGN expr SEMICOLON {
-        ASTNode* varNode = createVarNode(*$1)
+        ASTNode* varNode = createVarNode(*$1);
         ASTNode* assignNode = createOpNode("=", varNode, $3);
         /* Print Node */
         printf("Assignment result:\n");
@@ -128,13 +128,16 @@ void printAST(ASTNode * node, int level)
     if (node == NULL) return;
 
     for (int i = 0; i < level; i++) printf("  "); 
-    if (strcmp(node->nodeType, "NUM") == 0) {
+    if (strcmp(node->nodeType, "NUM") == 0) 
+    {
         printf("%d(int)\n", node->num);
     }
-    else if (strcmp(node->nodeType, "VAR") == 0) {
+    else if (strcmp(node->nodeType, "VAR") == 0) 
+    {
         printf("%c(var)\n", node->var);
     }
-    else {
+    else 
+    {
         //  operators and other node types
         printf("%s\n", node->nodeType);
         printAST(node->left, level + 1);
@@ -156,7 +159,8 @@ void yyerror(const char *s)
 fprintf(stderr, "Error: %s\n", s);
 }
 
-int main() {
+int main() 
+{
     yyparse();
     return 0;
 }

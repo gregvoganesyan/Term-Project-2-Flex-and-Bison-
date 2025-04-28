@@ -1,14 +1,12 @@
 %{
 #include "calcy.tab.h"
 #include "calcy.h"
-#include <ctype.h>
-#include <stdlib.h>
 #include <string.h>
 %}
 
 %%
 
-[a-zA-Z_][a-zA-Z0-9_]* {
+[a-z] {
     yylval.sValue = strdup(yytext);
     return VARIABLE;
 }
@@ -43,7 +41,7 @@
 
 . {
     printf("Unknown character: %s\n", yytext);
-    return YYUNDEF;
+    return 0;
 }
 
 %%

@@ -7,49 +7,45 @@
 
 %%
 
-[a-zA-Z_] [a-zA-Z0-9_]*
-{
-yylval.sValue = strdup(yytext);
-return VARIABLE;
+[a-zA-Z_] [a-zA-Z0-9_]* {
+    yylval.sValue = strdup(yytext);
+    return VARIABLE;
 }
 
-[0-9]+
-{
-yylval.iValue = atoi(yytext);
-return INTEGER;
+[0-9]+ {
+    yylval.iValue = atoi(yytext);
+    return INTEGER;
 }
 
-[ \t\r]+ {/* Ignoring whitespace */}
+[\t\r ]+   { /* Ignoring whitespace */ }
 
 \n {
-    printf("End of line"); 
-    return 0;
+        printf("End of line\n");
+        return 0
 }
 
-"+" {return PLUS;}
-"-" {return MINUS;}
-"*" {return MULT;}
-"/" {return DIV;}
-"^" {return POW;}
-"(" {return LPAREN;}
-")" {return RPAREN;}
-";" {return SEMICOLON;}
-">=" {return GE;}
-"<=" {return LE;}
-"==" {return EQ;}
-"=" {return ASSIGN;}
-"while" {return WHILE;}
-"if" {return IF;}
-"else" {return ELSE;} 
-"print" {return PRINT;} 
+"+" { return PLUS; }
+"-" { return MINUS; }
+"*" { return MULT; }
+"/" { return DIV; }
+"(" { return LPAREN; }
+")" { return RPAREN; }
+";" { return SEMICOLON; }
+">=" { return GE; }
+"<=" { return LE; }
+"==" { return EQ; }
+"=" { return ASSIGN; }
+"while" { return WHILE; }
+"if" { return IF; }
+"else" { return ELSE; }
+"print" { return PRINT; }
 
-.  { printf("Unknown character: %s\n", yytext); 
-    return YYUNDEF;
+. {
+    printf("Unknown character: %s\n", yytext);
+    return ERROR;
 }
 
 %%
 
-int yywrap(void)
-{
+int yywrap(void) {
     return 1;
-}

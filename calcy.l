@@ -5,7 +5,7 @@
 #include <string.h>
 %}
 
-[a-zA-z_][a-zA-Z0-9_]*
+[a-zA-Z_][a-zA-Z0-9_]*
 {
 yylval.sValue = strdup(yytext);
 return VARIABLE;
@@ -17,7 +17,7 @@ yylval.iValue = atoi(yytext);
 return INTEGER;
 }
 
-[\t\r]+ {/* Ignoting whitespace */}
+[ \t\r]+ {/* Ignoring whitespace */}
 
 \n {
     printf("End of line"); 
@@ -28,6 +28,7 @@ return INTEGER;
 "-" {return MINUS;}
 "*" {return MULT;}
 "/" {return DIV;}
+"^" {return POW;}
 "(" {return LPAREN;}
 ")" {return RPAREN;}
 "=" {return ASSIGN;}
@@ -41,7 +42,7 @@ return INTEGER;
 "print" {return PRINT;} 
 
 .  { printf("Unknown character: %s\n", yytext); 
-    return ERROR;
+    return YYUNDEF;
 }
 
 %%

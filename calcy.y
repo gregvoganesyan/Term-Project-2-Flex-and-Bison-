@@ -10,19 +10,18 @@ extern int yylex();
 typedef struct ASTNode
 {
     char * nodeType;
-    char var; // if representing variable
-    int num;  // if representing integer like '5'
+    char var; // representing variable
+    int num;  // representing integer like '5'
     struct ASTNode * left;
     struct ASTNode * right;
 } ASTNode;
-
-%}
 
 ASTNode* createNumNode(int num);
 ASTNode* createVarNode(char var);
 ASTNode* createOpNode(char* op, ASTNode* left, ASTNode* right);
 void printAST(ASTNode *node, int level);
 void freeAST(ASTNode *node);
+%}
 
 %union {
     int iValue;
@@ -112,6 +111,15 @@ ASTNode * createVarNode(char var)
     node->var = var;
     node->left = NULL;
     node->right = NULL;
+    return node;
+}
+
+ASTNode* createOpNode(char* op, ASTNode* left, ASTNode* right) 
+{
+    ASTNode* node = malloc(sizeof(ASTNode));
+    node->nodeType = strdup(op);
+    node->left = left;
+    node->right = right;
     return node;
 }
 

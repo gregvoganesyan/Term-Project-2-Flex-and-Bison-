@@ -1,27 +1,5 @@
 %{
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
 #include "calcy.h"
-
-void yyerror(const char *s);
-extern int yylex();
-
-typedef struct ASTNode
-{
-    char * nodeType;
-    char var; // representing variable
-    int num;  // representing integer like '5'
-    struct ASTNode * left;
-    struct ASTNode * right;
-} ASTNode;
-
-ASTNode* createNumNode(int num);
-ASTNode* createVarNode(char var);
-ASTNode* createOpNode(char* op, ASTNode* left, ASTNode* right);
-void printAST(ASTNode *node, int level);
-void freeAST(ASTNode *node);
 %}
 
 %union {
